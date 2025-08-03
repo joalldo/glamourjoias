@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<ht            </div>
+            <button class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 20px; cursor: pointer;">☰</button>
+            <div class="nav-icons"></div>-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glamour Joias - Semijoias e Acessórios</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Botão do Carrinho Flutuante -->
+    <button id="cart-button" class="cart-button" onclick="toggleCartModal()">
+        <svg class="nav-icon nav-cart" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-4.479l1.114 12.258a2.25 2.25 0 01-2.247 2.471H5.527a2.25 2.25 0 01-2.247-2.47l1.114-12.26A2.25 2.25 0 016.638 6h10.724a2.25 2.25 0 012.244 2.021z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-4.479l1.114 12.258a2.25 2.25 0 01-2.247 2.471H5.527a2.25 2.25 0 01-2.247-2.47l1.114-12.26A2.25 2.25 0 016.638 6h10.724a2.25 2.25 0 012.244 2.021z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+    </button>
+
+    <!-- Navigation -->
+    <div class="nav-wrapper">
+        <nav class="nav">
+            <a href="#" class="nav-logo">Glamour Joias</a>
+            <ul class="nav-menu">
+                <li><a href="#joias">Joias</a></li>
+                <li><a href="#colecoes">Coleções</a></li>
+                <li><a href="#acessorios">Acessórios</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <button class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 20px; cursor: pointer;">☰</button>
+            <!-- Menu removido para evitar duplicidade no desktop -->
+            <div class="nav-icons">
+                <div style="position: relative;">
+                    <svg class="nav-icon nav-cart" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-4.479l1.114 12.258a2.25 2.25 0 01-2.247 2.471H5.527a2.25 2.25 0 01-2.247-2.47l1.114-12.26A2.25 2.25 0 016.638 6h10.724a2.25 2.25 0 012.244 2.021z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span id="cart-count">0</span>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <button id="open-cart" class="cart-button" onclick="toggleCartModal()">
+        <svg class="nav-icon nav-cart" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-4.479l1.114 12.258a2.25 2.25 0 01-2.247 2.471H5.527a2.25 2.25 0 01-2.247-2.47l1.114-12.26A2.25 2.25 0 016.638 6h10.724a2.25 2.25 0 012.244 2.021z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span id="cart-count">0</span>
+    </button>
+
+    <!-- Modal do Carrinho -->
+    <div id="cart-modal" class="cart-modal" style="display: none;">
+        <div class="cart-modal-overlay" onclick="toggleCartModal()"></div>
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2>Meu Carrinho</h2>
+                <button onclick="toggleCartModal()" class="cart-modal-close">&times;</button>
+            </div>
+            <div class="cart-modal-body">
+                <div id="cart-items-list"></div>
+                <div id="cart-empty-message" style="text-align: center; padding: 20px;">
+                    Seu carrinho está vazio
+                </div>
+            </div>
+            <div class="cart-modal-footer">
+                <div class="cart-total">Total: <span id="cart-total">R$ 0,00</span></div>
+                <button id="cart-checkout" class="cart-checkout-btn">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+ <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Joias Exclusivas</h1>
+            <p class="subtitle">Beleza e elegância em cada detalhe</p>
+            <p class="description">Descubra nossa coleção de semijoias premium, criadas com design único e acabamento impecável para realçar sua beleza.</p>
+            
+            <div class="cta-buttons">
+                <a href="#joias" class="btn btn-primary">Explorar Coleção</a>
+                <a href="#sobre" class="btn btn-secondary">Saiba Mais</a>
+            </div>
+
+            <div class="hero-image">
+                <div class="perfume-bottle"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section" id="colecoes" style="padding: 70px 0 40px 0; background: #fff;">
+        <div class="section-header" style="text-align: center; margin-bottom: 36px;">
+            <h2 style="color: #800020; font-size: 2.3em; letter-spacing: 1px; margin-bottom: 10px; font-weight: 700;">Nossa Coleção</h2>
+            <p style="font-size: 1.15em; color: #555; max-width: 500px; margin: 0 auto;">Descubra peças únicas que revelam sua elegância.</p>
+        </div>
+        <div class="categories-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 28px; max-width: 900px; margin: 0 auto;">
+            <a href="#aneis" class="category-card" style="min-width: 160px; max-width: 200px; background: #faf7f5; border-radius: 12px; padding: 32px 18px 22px 18px; text-align: center; box-shadow: 0 2px 10px rgba(128,0,32,0.04); transition: box-shadow 0.2s; display: flex; flex-direction: column; align-items: center;">
+                <div class="category-icon" style="font-size: 2.5em; margin-bottom: 10px;">💍</div>
+                <h3 style="color: #800020; font-size: 1.1em; font-weight: 600;">Anéis</h3>
+            </a>
+            <a href="#brincos" class="category-card" style="min-width: 160px; max-width: 200px; background: #faf7f5; border-radius: 12px; padding: 32px 18px 22px 18px; text-align: center; box-shadow: 0 2px 10px rgba(128,0,32,0.04); transition: box-shadow 0.2s; display: flex; flex-direction: column; align-items: center;">
+                <div class="category-icon" style="font-size: 2.5em; margin-bottom: 10px;">🦋</div>
+                <h3 style="color: #800020; font-size: 1.1em; font-weight: 600;">Brincos</h3>
+            </a>
+            <a href="#colares" class="category-card" style="min-width: 160px; max-width: 200px; background: #faf7f5; border-radius: 12px; padding: 32px 18px 22px 18px; text-align: center; box-shadow: 0 2px 10px rgba(128,0,32,0.04); transition: box-shadow 0.2s; display: flex; flex-direction: column; align-items: center;">
+                <div class="category-icon" style="font-size: 2.5em; margin-bottom: 10px;">✨</div>
+                <h3 style="color: #800020; font-size: 1.1em; font-weight: 600;">Colares</h3>
+            </a>
+            <a href="#pulseiras" class="category-card" style="min-width: 160px; max-width: 200px; background: #faf7f5; border-radius: 12px; padding: 32px 18px 22px 18px; text-align: center; box-shadow: 0 2px 10px rgba(128,0,32,0.04); transition: box-shadow 0.2s; display: flex; flex-direction: column; align-items: center;">
+                <div class="category-icon" style="font-size: 2.5em; margin-bottom: 10px;">🌸</div>
+                <h3 style="color: #800020; font-size: 1.1em; font-weight: 600;">Pulseiras</h3>
+            </a>
+            <a href="#conjuntos" class="category-card category-wide" style="min-width: 160px; max-width: 200px; background: #faf7f5; border-radius: 12px; padding: 32px 18px 22px 18px; text-align: center; box-shadow: 0 2px 10px rgba(128,0,32,0.04); transition: box-shadow 0.2s; display: flex; flex-direction: column; align-items: center;">
+                <div class="category-icon" style="font-size: 2.5em; margin-bottom: 10px;">🎁</div>
+                <h3 style="color: #800020; font-size: 1.1em; font-weight: 600;">Conjuntos</h3>
+            </a>
+        </div>
+    </section>
+    <!-- Produtos -->
+    <section class="products-section" style="padding: 80px 20px;">
+        <div style="max-width: 600px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 36px;">
+                <h2 style="color: #800020; font-size: 2em; margin-bottom: 10px;">Novidades Exclusivas!</h2>
+                <p style="font-size: 1.1em; color: #333;">Confira lançamentos incríveis, peças exclusivas e preços especiais para você brilhar em qualquer ocasião.</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 32px;">
+                <!-- Produto 1 -->
+                <div class="product-card" style="background: white; padding: 28px 20px 24px 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 16px rgba(128,0,32,0.06); display: flex; flex-direction: column; align-items: center;">
+                    <div style="width: 220px; height: 220px; background: #f8f6f9; border-radius: 10px; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <img src="placeholder-image.jpg" alt="Anel Elegance" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <h3 style="font-size: 1.3em; color: #800020; margin-bottom: 6px;">Anel Elegance</h3>
+                    <p style="color: #444; font-size: 1em; margin-bottom: 8px;">Design sofisticado e acabamento premium.</p>
+                    <p style="color: #800020; font-weight: bold; font-size: 1.2em; margin-bottom: 12px;">R$ 89,90</p>
+                    <button class="add-to-cart" data-id="1" data-name="Anel Elegance" data-price="89.90" style="background: linear-gradient(90deg, #800020 60%, #A94064 100%); color: white; border: none; padding: 12px 28px; border-radius: 6px; cursor: pointer; font-size: 1em; font-weight: 500; box-shadow: 0 2px 8px rgba(128,0,32,0.08); transition: background 0.3s;">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+
+                <!-- Produto 2 -->
+                <div class="product-card" style="background: white; padding: 28px 20px 24px 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 16px rgba(128,0,32,0.06); display: flex; flex-direction: column; align-items: center;">
+                    <div style="width: 220px; height: 220px; background: #f8f6f9; border-radius: 10px; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <img src="placeholder-image.jpg" alt="Colar Venice" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <h3 style="font-size: 1.3em; color: #800020; margin-bottom: 6px;">Colar Venice</h3>
+                    <p style="color: #444; font-size: 1em; margin-bottom: 8px;">Exclusividade e elegância para o seu look.</p>
+                    <p style="color: #800020; font-weight: bold; font-size: 1.2em; margin-bottom: 12px;">R$ 129,90</p>
+                    <button class="add-to-cart" data-id="2" data-name="Colar Venice" data-price="129.90" style="background: linear-gradient(90deg, #800020 60%, #A94064 100%); color: white; border: none; padding: 12px 28px; border-radius: 6px; cursor: pointer; font-size: 1em; font-weight: 500; box-shadow: 0 2px 8px rgba(128,0,32,0.08); transition: background 0.3s;">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+
+                <!-- Produto 3 -->
+                <div class="product-card" style="background: white; padding: 28px 20px 24px 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 16px rgba(128,0,32,0.06); display: flex; flex-direction: column; align-items: center;">
+                    <div style="width: 220px; height: 220px; background: #f8f6f9; border-radius: 10px; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <img src="placeholder-image.jpg" alt="Brinco Crystal" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <h3 style="font-size: 1.3em; color: #800020; margin-bottom: 6px;">Brinco Crystal</h3>
+                    <p style="color: #444; font-size: 1em; margin-bottom: 8px;">Brilho e delicadeza em cada detalhe.</p>
+                    <p style="color: #800020; font-weight: bold; font-size: 1.2em; margin-bottom: 12px;">R$ 69,90</p>
+                    <button class="add-to-cart" data-id="3" data-name="Brinco Crystal" data-price="69.90" style="background: linear-gradient(90deg, #800020 60%, #A94064 100%); color: white; border: none; padding: 12px 28px; border-radius: 6px; cursor: pointer; font-size: 1em; font-weight: 500; box-shadow: 0 2px 8px rgba(128,0,32,0.08); transition: background 0.3s;">
+                        Adicionar ao Carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Promo Carousel removido -->
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-sections">
+                <div class="footer-section">
+                    <h4>Loja</h4>
+                    <ul>
+                        <li><a href="#">Perfumes Femininos</a></li>
+                        <li><a href="#">Perfumes Masculinos</a></li>
+                        <li><a href="#">Perfumes Unissex</a></li>
+                        <li><a href="#">Presentes</a></li>
+                        <li><a href="#">Ofertas Especiais</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Serviços</h4>
+                    <ul>
+                        <li><a href="#">Cartão Essência</a></li>
+                        <li><a href="#">Programa de Fidelidade</a></li>
+                        <li><a href="#">Consultoria de Fragrâncias</a></li>
+                        <li><a href="#">Assinatura Mensal</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Trocas e Devoluções</a></li>
+                        <li><a href="#">Status do Pedido</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Essência</h4>
+                    <ul>
+                        <li><a href="#">Nossa História</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#">Imprensa</a></li>
+                        <li><a href="#">Responsabilidade Social</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Glamour Joias. Todos os direitos reservados. | Política de Privacidade | Termos de Uso</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="script.js"></script>
+    <script src="script-cart.js"></script>
+</body>
+</html>

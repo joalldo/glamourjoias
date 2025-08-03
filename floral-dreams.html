@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floral Dreams - Eau de Parfum | Essência</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="produto.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-wrapper">
+        <nav class="nav">
+            <a href="../index.html" class="nav-logo">Essência</a>
+            <ul class="nav-menu">
+                <li><a href="../index.html#produtos">Perfumes</a></li>
+                <li><a href="../index.html#colecoes">Coleções</a></li>
+                <li><a href="../index.html#presentes">Presentes</a></li>
+                <li><a href="../index.html#sobre">Sobre</a></li>
+                <li><a href="../index.html#contato">Contato</a></li>
+            </ul>
+            <div class="nav-icons">
+                <svg class="nav-icon nav-cart" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-4.479l1.114 12.258a2.25 2.25 0 01-2.247 2.471H5.527a2.25 2.25 0 01-2.247-2.47l1.114-12.26A2.25 2.25 0 016.638 6h10.724a2.25 2.25 0 012.244 2.021z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html">Home</a> > <a href="../index.html#produtos">Perfumes</a> > <a href="#">Feminino</a> > Floral Dreams
+        </div>
+        
+        <div class="product-container">
+            <div class="product-images">
+                <div class="main-image">
+                    <div class="heart-icon">♡</div>
+                    <div class="product-image" style="font-size: 120px;">🌸</div>
+                </div>
+                <div class="thumbnail-container">
+                    <div class="thumbnail active">
+                        <div class="product-image" style="font-size: 24px;">🌸</div>
+                    </div>
+                    <div class="thumbnail">
+                        <div class="product-image" style="font-size: 24px;">🌺</div>
+                    </div>
+                    <div class="thumbnail">
+                        <div class="product-image" style="font-size: 24px;">💐</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-info">
+                <div class="brand">ESSÊNCIA</div>
+                <h1 class="product-name">Floral Dreams</h1>
+                <p class="product-subtitle">Eau de Parfum Feminino</p>
+                
+                <div class="rating">
+                    <div class="stars">★★★★★</div>
+                    <span class="rating-text">4.9 (85 avaliações)</span>
+                </div>
+                
+                <div class="price-section">
+                    <div class="old-price">De R$ 359,00</div>
+                    <div class="current-price">R$ 299,00</div>
+                    <div class="installments">ou 6x de R$ 49,83 sem juros</div>
+                </div>
+                
+                <div class="size-section">
+                    <h3 class="section-title">Tamanho:</h3>
+                    <div class="size-options">
+                        <div class="size-option">30ml</div>
+                        <div class="size-option active">50ml</div>
+                        <div class="size-option">100ml</div>
+                    </div>
+                </div>
+                
+                <div class="quantity-section">
+                    <span class="section-title">Quantidade:</span>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1" id="quantity">
+                        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                </div>
+                
+                <div class="cta-section">
+                    <button class="btn btn-primary">Comprar Agora</button>
+                    <button class="btn btn-secondary">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="trust-badges">
+                    <div class="badge">
+                        <div class="badge-icon">🚚</div>
+                        <div class="badge-text">Frete Grátis</div>
+                    </div>
+                    <div class="badge">
+                        <div class="badge-icon">🔒</div>
+                        <div class="badge-text">Compra Segura</div>
+                    </div>
+                    <div class="badge">
+                        <div class="badge-icon">↩️</div>
+                        <div class="badge-text">Troca Grátis</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="product-details">
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('description')">Descrição</div>
+                <div class="tab" onclick="showTab('notes')">Notas Olfativas</div>
+                <div class="tab" onclick="showTab('reviews')">Avaliações</div>
+            </div>
+            
+            <div class="tab-content active" id="description">
+                <h3>Sobre o Perfume</h3>
+                <p>Uma explosão de flores silvestres com notas de jasmim, rosa e peônia. Perfeito para o dia a dia, Floral Dreams é uma fragrância que celebra a feminilidade e a delicadeza das flores mais preciosas.</p>
+                
+                <h4>Características:</h4>
+                <ul>
+                    <li>Família Olfativa: Floral</li>
+                    <li>Concentração: Eau de Parfum</li>
+                    <li>Longevidade: 6-8 horas</li>
+                    <li>Projeção: Moderada</li>
+                    <li>Ocasião: Dia</li>
+                </ul>
+            </div>
+            
+            <div class="tab-content" id="notes">
+                <h3>Pirâmide Olfativa</h3>
+                <div class="fragrance-notes">
+                    <div class="note-category">
+                        <h4>Notas de Saída</h4>
+                        <p>Bergamota, Pêssego, Flores Silvestres</p>
+                    </div>
+                    <div class="note-category">
+                        <h4>Notas de Coração</h4>
+                        <p>Jasmim, Rosa, Peônia, Lírio-do-vale</p>
+                    </div>
+                    <div class="note-category">
+                        <h4>Notas de Fundo</h4>
+                        <p>Almíscar, Âmbar, Baunilha</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="reviews">
+                <h3>Avaliações dos Clientes</h3>
+                <div class="review">
+                    <div class="review-header">
+                        <div class="stars">★★★★★</div>
+                        <strong>Ana Paula</strong>
+                        <span class="verified">Verificado</span>
+                    </div>
+                    <p>"Perfume maravilhoso! Uso todos os dias e sempre recebo elogios."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        // Funções específicas da página de produto
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+        
+        function increaseQuantity() {
+            const input = document.getElementById('quantity');
+            input.value = parseInt(input.value) + 1;
+        }
+        
+        function decreaseQuantity() {
+            const input = document.getElementById('quantity');
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+    </script>
+</body>
+</html>
