@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<ht            </div>
-            <button class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 20px; cursor: pointer;">☰</button>
-            <div class="nav-icons"></div>-BR">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,17 +7,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Botão do Carrinho Flutuante -->
-    <button id="cart-button" class="cart-button" onclick="toggleCartModal()">
-        <svg class="nav-icon nav-cart" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-4.479l1.114 12.258a2.25 2.25 0 01-2.247 2.471H5.527a2.25 2.25 0 01-2.247-2.47l1.114-12.26A2.25 2.25 0 016.638 6h10.724a2.25 2.25 0 012.244 2.021z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
-        </svg>
-        <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-4.479l1.114 12.258a2.25 2.25 0 01-2.247 2.471H5.527a2.25 2.25 0 01-2.247-2.47l1.114-12.26A2.25 2.25 0 016.638 6h10.724a2.25 2.25 0 012.244 2.021z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
-    </button>
+    <!-- Carrinho: apenas ícone na nav superior será usado -->
 
     <!-- Navigation -->
     <div class="nav-wrapper">
         <nav class="nav">
+            <!-- Mobile menu icon (top-left) - visible only on small screens -->
+            <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+            <!-- mobile menu toggle handled in script.js -->
             <a href="#" class="nav-logo">Glamour Joias</a>
             <ul class="nav-menu">
                 <li><a href="#joias">Joias</a></li>
@@ -27,12 +22,35 @@
                 <li><a href="#acessorios">Acessórios</a></li>
                 <li><a href="#sobre">Sobre</a></li>
                 <li><a href="#contato">Contato</a></li>
+                <!-- Categorias no menu mobile -->
+                <li class="menu-divider" style="border-top: 1px solid #ddd; margin: 10px 0; display: none;"></li>
+                <li class="mobile-categories" style="display: none;">
+                    <div class="categories-grid-mobile" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px 0;">
+                        <a href="#aneis" class="category-card-mobile" style="padding: 10px; text-align: center; font-size: 0.9em;">
+                            <div style="font-size: 1.8em;">💍</div>
+                            <div style="color: #800020; font-weight: 600;">Anéis</div>
+                        </a>
+                        <a href="#brincos" class="category-card-mobile" style="padding: 10px; text-align: center; font-size: 0.9em;">
+                            <div style="font-size: 1.8em;">🦋</div>
+                            <div style="color: #800020; font-weight: 600;">Brincos</div>
+                        </a>
+                        <a href="#colares" class="category-card-mobile" style="padding: 10px; text-align: center; font-size: 0.9em;">
+                            <div style="font-size: 1.8em;">✨</div>
+                            <div style="color: #800020; font-weight: 600;">Colares</div>
+                        </a>
+                        <a href="#pulseiras" class="category-card-mobile" style="padding: 10px; text-align: center; font-size: 0.9em;">
+                            <div style="font-size: 1.8em;">🌸</div>
+                            <div style="color: #800020; font-weight: 600;">Pulseiras</div>
+                        </a>
+                    </div>
+                </li>
             </ul>
-            <button class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 20px; cursor: pointer;">☰</button>
+            <!-- mobile menu button removed to prevent display on small screens -->
             <!-- Menu removido para evitar duplicidade no desktop -->
             <div class="nav-icons">
                 <div style="position: relative;">
-                    <svg class="nav-icon nav-cart" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Ícone do carrinho (top-right) — único ativo -->
+                    <svg id="nav-cart-icon" class="nav-icon nav-cart" fill="none" stroke="currentColor" viewBox="0 0 24 24" role="button" tabindex="0">
                         <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-4.479l1.114 12.258a2.25 2.25 0 01-2.247 2.471H5.527a2.25 2.25 0 01-2.247-2.47l1.114-12.26A2.25 2.25 0 016.638 6h10.724a2.25 2.25 0 012.244 2.021z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <span id="cart-count">0</span>
@@ -40,12 +58,6 @@
             </div>
         </nav>
     </div>
-    <button id="open-cart" class="cart-button" onclick="toggleCartModal()">
-        <svg class="nav-icon nav-cart" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-4.479l1.114 12.258a2.25 2.25 0 01-2.247 2.471H5.527a2.25 2.25 0 01-2.247-2.47l1.114-12.26A2.25 2.25 0 016.638 6h10.724a2.25 2.25 0 012.244 2.021z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span id="cart-count">0</span>
-    </button>
 
     <!-- Modal do Carrinho -->
     <div id="cart-modal" class="cart-modal" style="display: none;">
@@ -222,6 +234,5 @@
 
 
     <script src="script.js"></script>
-    <script src="script-cart.js"></script>
 </body>
 </html>

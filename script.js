@@ -121,62 +121,76 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Navigation mobile toggle (if you want to add mobile menu later)
+// Navigation mobile toggle intentionally disabled: mobile menu button must not appear
 const createMobileMenu = () => {
-    const navWrapper = document.querySelector('.nav-wrapper');
-    const mobileButton = document.createElement('button');
-    mobileButton.className = 'mobile-menu-btn';
-    mobileButton.innerHTML = '☰';
-    mobileButton.style.display = 'none';
-    mobileButton.style.background = 'none';
-    mobileButton.style.border = 'none';
-    mobileButton.style.fontSize = '20px';
-    mobileButton.style.cursor = 'pointer';
-    
-    // Add mobile styles
-    const mobileStyle = document.createElement('style');
-    mobileStyle.textContent = `
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block !important;
-            }
-            .nav-menu.mobile-active {
-                display: flex !important;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: white;
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-                gap: 20px !important;
-            }
-        }
-    `;
-    document.head.appendChild(mobileStyle);
-    
-    const nav = document.querySelector('.nav');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    nav.insertBefore(mobileButton, document.querySelector('.nav-icons'));
-    
-    mobileButton.addEventListener('click', () => {
-        navMenu.classList.toggle('mobile-active');
-    });
+    // no-op to prevent insertion of mobile menu button
 };
 
-// Initialize mobile menu
-createMobileMenu();
+// Do not initialize mobile menu
+// createMobileMenu();
+
+// Mobile menu toggle (top-left) behavior
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileToggle = document.getElementById('mobile-menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    if (!mobileToggle || !navMenu) return;
+
+    mobileToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+        mobileToggle.setAttribute('aria-expanded', (!expanded).toString());
+        navMenu.classList.toggle('mobile-active');
+    });
+
+    // Close mobile menu when a nav link is clicked
+    navMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+            navMenu.classList.remove('mobile-active');
+            mobileToggle.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (event) => {
+        if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
+            if (navMenu.classList.contains('mobile-active')) {
+                navMenu.classList.remove('mobile-active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            }
+        }
+    });
+
+    // Close mobile menu with Escape key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            if (navMenu.classList.contains('mobile-active')) {
+                navMenu.classList.remove('mobile-active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            }
+        }
+    });
+
+    // Ensure menu is closed on resize to avoid stuck state when crossing breakpoint
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 880 && navMenu.classList.contains('mobile-active')) {
+            navMenu.classList.remove('mobile-active');
+            mobileToggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+});
 
 
 // Carousel functionality
 document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.querySelector('.carousel-container');
+    if (!carousel) return; // Sair se carrossel não existir
+    
     const slides = document.querySelectorAll('.carousel-slide');
     const dotsContainer = document.querySelector('.carousel-dots');
     const prevButton = document.querySelector('.carousel-button.prev');
     const nextButton = document.querySelector('.carousel-button.next');
+    
+    if (!slides.length || !dotsContainer || !prevButton || !nextButton) return;
     
     let currentSlide = 0;
     const totalSlides = slides.length;
@@ -251,7 +265,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // Funções do carrinho
 function toggleCartModal() {
     const modal = document.getElementById('cart-modal');
-    const isVisible = modal.style.display === 'flex';
+    if (!modal) {
+        console.warn('Modal do carrinho não encontrado');
+        return;
+    }
+    const isVisible = modal.style.display === 'flex' || modal.style.display === 'block';
     modal.style.display = isVisible ? 'none' : 'flex';
     
     if (!isVisible) {
@@ -260,18 +278,89 @@ function toggleCartModal() {
     }
 }
 
+// Se a página não tiver o modal do carrinho, injetar um padrão mantendo a estética
+function ensureCartModalExists() {
+    if (document.getElementById('cart-modal')) return;
+
+    const modalHtml = `
+    <div id="cart-modal" class="cart-modal" style="display: none;">
+        <div class="cart-modal-overlay" onclick="toggleCartModal()"></div>
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2>Meu Carrinho</h2>
+                <button onclick="toggleCartModal()" class="cart-modal-close">&times;</button>
+            </div>
+            <div class="cart-modal-body">
+                <div id="cart-items-list"></div>
+                <div id="cart-empty-message" style="text-align: center; padding: 20px;">
+                    Seu carrinho está vazio
+                </div>
+            </div>
+            <div class="cart-modal-footer">
+                <div class="cart-total">Total: <span id="cart-total">R$ 0,00</span></div>
+                <button id="cart-checkout" class="cart-checkout-btn">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>`;
+
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = modalHtml;
+    document.body.appendChild(wrapper.firstElementChild);
+
+    // adicionar listener do checkout (o restante do script já assume existência)
+    const checkoutBtn = document.getElementById('cart-checkout');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            if (cartItems.length === 0) return;
+
+            let message = 'Olá! Gostaria de fazer um pedido:%0A%0A';
+            let total = 0;
+
+            cartItems.forEach(item => {
+                const itemTotal = item.price * (item.quantity || 1);
+                message += `• ${item.quantity}x ${item.name}%0A`;
+                message += `  R$ ${item.price.toFixed(2).replace('.', ',')} cada%0A`;
+                message += `  Subtotal: R$ ${itemTotal.toFixed(2).replace('.', ',')}%0A%0A`;
+                total += itemTotal;
+            });
+
+            message += `*TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*`;
+            window.open(`https://wa.me/5511999999999?text=${message}`, '_blank');
+        });
+    }
+}
+
 function updateCartDisplay() {
     const cartItemsList = document.getElementById('cart-items-list');
     const emptyMessage = document.getElementById('cart-empty-message');
     const checkoutBtn = document.getElementById('cart-checkout');
-    const cartCount = document.getElementById('cart-count');
+    // Garantir que exista um elemento #cart-count; se não, cria próximo ao primeiro .nav-cart
+    let cartCount = document.getElementById('cart-count');
+    if (!cartCount) {
+        const firstNavCart = document.querySelector('.nav-cart');
+        if (firstNavCart) {
+            const span = document.createElement('span');
+            span.id = 'cart-count';
+            span.textContent = '0';
+            // posicionamento depende do CSS; colocar como último filho do wrapper do ícone
+            const parent = firstNavCart.parentElement || firstNavCart.parentNode;
+            parent.style.position = parent.style.position || 'relative';
+            parent.appendChild(span);
+            cartCount = span;
+        }
+    }
     const cartTotal = document.getElementById('cart-total');
     
     // Recuperar itens do carrinho do localStorage
     const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
     
-    // Atualizar contador
-    cartCount.textContent = cartItems.length;
+    // Atualizar contador (soma das quantidades)
+    if (cartCount) {
+        const totalCount = cartItems.reduce((sum, it) => sum + (it.quantity || 1), 0);
+        cartCount.textContent = totalCount;
+        cartCount.style.display = totalCount > 0 ? 'flex' : 'none';
+    }
     
     if (cartItems.length === 0) {
         cartItemsList.style.display = 'none';
@@ -363,5 +452,101 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Conectar ícone do nav (top-right) ao modal do carrinho
+document.addEventListener('DOMContentLoaded', () => {
+    const navCartIcon = document.getElementById('nav-cart-icon');
+    if (navCartIcon) {
+        navCartIcon.addEventListener('click', () => toggleCartModal());
+        // Acessibilidade: permitir abrir com Enter
+        navCartIcon.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleCartModal();
+            }
+        });
+    }
+
+    // Se havia outros botões de carrinho no HTML (removidos), garantir que não existam listeners duplicados
+    const floatingCartBtn = document.getElementById('cart-button');
+    const openCartBtn = document.getElementById('open-cart');
+    if (floatingCartBtn) floatingCartBtn.remove();
+    if (openCartBtn) openCartBtn.remove();
+});
+
+// Aplicar comportamento a todos os ícones .nav-cart em qualquer página
+document.addEventListener('DOMContentLoaded', () => {
+    ensureCartModalExists();
+
+    const navCarts = document.querySelectorAll('.nav-cart');
+    navCarts.forEach(svg => {
+        // evitar duplicar listeners
+        svg.removeEventListener('click', toggleCartModal);
+        svg.addEventListener('click', () => toggleCartModal());
+        svg.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleCartModal();
+            }
+        });
+    });
+
+    // Atualizar contadores caso tenham sido injetados
+    updateCartDisplay();
+    
+    // Attach add-to-cart handlers
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const name = btn.dataset.name || btn.getAttribute('data-name');
+            const price = parseFloat(btn.dataset.price || btn.getAttribute('data-price')) || 0;
+            addToCart(name, price);
+
+            // feedback visual simples
+            btn.textContent = 'Adicionado ✓';
+            setTimeout(() => {
+                btn.textContent = 'Adicionar ao Carrinho';
+            }, 900);
+        });
+    });
+});
+
+// Event delegation: captura cliques em .nav-cart ou #nav-cart-icon de qualquer lugar do document
+document.addEventListener('click', (e) => {
+    const target = e.target.closest('.nav-cart, #nav-cart-icon');
+    if (target) {
+        e.stopPropagation();
+        toggleCartModal();
+    }
+});
+
+// Função de checkout - redireciona para WhatsApp com resumo do carrinho
+function checkoutCart() {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    
+    if (cartItems.length === 0) {
+        alert('Seu carrinho está vazio!');
+        return;
+    }
+    
+    // Montar mensagem de carrinho
+    let cartSummary = 'Olá! Gostaria de fazer um pedido:\n\n';
+    let total = 0;
+    
+    cartItems.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        cartSummary += `${index + 1}. ${item.name} - Quantidade: ${item.quantity} - R$ ${itemTotal.toFixed(2)}\n`;
+    });
+    
+    cartSummary += `\nTotal: R$ ${total.toFixed(2)}\n\nPor favor, confirme o pedido!`;
+    
+    // Número de WhatsApp (você pode alterar aqui)
+    const phoneNumber = '5511999999999';
+    const encodedMessage = encodeURIComponent(cartSummary);
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    window.open(whatsappURL, '_blank');
+}
+
+
 // Console log for developers
-console.log('🌸 Essência - Perfume Store loaded successfully!');
+console.log('🌸 Glamour Joias - Joias Store loaded successfully!');
